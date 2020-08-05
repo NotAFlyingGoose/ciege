@@ -3,9 +3,11 @@
  */
 package com.runningmanstudios.caffeineGameEngine.util.log;
 
+import com.runningmanstudios.caffeineGameEngine.console.Console;
 import com.runningmanstudios.caffeineGameEngine.rendering.style.Style;
 import com.runningmanstudios.caffeineGameEngine.util.resources.Resource;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,20 +18,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * LogPrinter gives more information about methods, like the time they were printed, and saves it to a .clog file.
- *
  */
 public class GameLogger {
+    public static Console console;
 	private static final int depth;
     private static String className = "";
     private static final File logPath;
-    private static final CopyOnWriteArrayList<String> toAdd = new CopyOnWriteArrayList<>();
     private static final ClogWriter clogWriter;
 
     static {
         depth = 2;
-        DateTimeFormatter timeF = DateTimeFormatter.ofPattern("yyyy/MM/dd|HH:mm:ss.n");
         LocalDateTime now = LocalDateTime.now();
-        String time = timeF.format(now);
         String startTime = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-n").format(now);
         String extension = "clog";
         String path = System.getProperty("user.home")+System.getProperty("file.separator")+".ciege"+System.getProperty("file.separator")+"logs"+System.getProperty("file.separator")+startTime +"." + extension;
@@ -47,6 +46,8 @@ public class GameLogger {
             clogWriter.requestClose();
             clogWriter.requestFinish();
         }));
+        console = new Console();
+        console.removeInput();
     }
 
     /**
@@ -60,54 +61,44 @@ public class GameLogger {
         String call2 = "] : ";
         switch (type) {
             case WARN -> {
-                System.out.print(Style.AnsiColor.YELLOW);
-                System.out.print(call1);
-                System.out.print(Style.AnsiColor.YELLOW_BOLD_BRIGHT);
-                System.out.print(type);
-                System.out.print(Style.AnsiColor.YELLOW);
-                System.out.print(call2);
-                System.out.print(Style.AnsiColor.YELLOW_BRIGHT);
-                System.out.print(text);
-                System.out.print(Style.AnsiColor.RESET);
-                System.out.print("\n");
+                console.print(call1, Color.YELLOW);
+                console.print(type, new Color(255, 255, 155));
+                console.print(call2, Color.YELLOW);
+                console.println(text, new Color(255, 255, 155));
             }
             case DEBUG -> {
-                System.out.print(Style.AnsiColor.BLUE);
-                System.out.print(call1);
-                System.out.print(Style.AnsiColor.BLUE_BOLD_BRIGHT);
-                System.out.print(type);
-                System.out.print(Style.AnsiColor.BLUE);
-                System.out.print(call2);
-                System.out.print(Style.AnsiColor.BLUE_BRIGHT);
-                System.out.print(text);
-                System.out.print(Style.AnsiColor.RESET);
-                System.out.print("\n");
+                console.print(call1, Color.BLUE);
+                console.print(type, new Color(155, 155, 255));
+                console.print(call2, Color.BLUE);
+                console.println(text, new Color(155, 155, 255));
             }
             case ERROR -> {
-                System.out.print(Style.AnsiColor.RED);
-                System.out.print(call1);
-                System.out.print(Style.AnsiColor.RED_BOLD_BRIGHT);
-                System.out.print(type);
-                System.out.print(Style.AnsiColor.RED);
-                System.out.print(call2);
-                System.out.print(Style.AnsiColor.RED_BRIGHT);
-                System.out.print(text);
-                System.out.print(Style.AnsiColor.RESET);
-                System.out.print("\n");
+                console.print(call1, Color.RED);
+                console.print(type, new Color(255, 155, 155));
+                console.print(call2, Color.RED);
+                console.println(text, new Color(255, 155, 155));
             }
             case INFO -> {
-                System.out.print(Style.AnsiColor.GREEN);
-                System.out.print(call1);
-                System.out.print(Style.AnsiColor.GREEN_BOLD_BRIGHT);
-                System.out.print(type);
-                System.out.print(Style.AnsiColor.GREEN);
-                System.out.print(call2);
-                System.out.print(Style.AnsiColor.GREEN_BRIGHT);
-                System.out.print(text);
-                System.out.print(Style.AnsiColor.RESET);
-                System.out.print("\n");
+                console.print(call1, Color.GREEN);
+                console.print(type, new Color(155, 255, 155));
+                console.print(call2, Color.GREEN);
+                console.println(text, new Color(155, 255, 155));
             }
         }
+    }
+
+    /**
+     * shows the console window
+     */
+    public static void show() {
+        console.setVisible(true);
+    }
+
+    /**
+     * hides the console window
+     */
+    public static void hide() {
+        console.setVisible(false);
     }
 
     /**

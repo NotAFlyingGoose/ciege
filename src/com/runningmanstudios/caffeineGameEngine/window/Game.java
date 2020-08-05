@@ -10,9 +10,11 @@ import com.runningmanstudios.caffeineGameEngine.checks.exceptions.GameBuilderExc
 import com.runningmanstudios.caffeineGameEngine.entities.AbstractEntity;
 import com.runningmanstudios.caffeineGameEngine.input.Input;
 import com.runningmanstudios.caffeineGameEngine.rendering.SceneManager;
+import com.runningmanstudios.caffeineGameEngine.rendering.style.Style;
 import com.runningmanstudios.caffeineGameEngine.util.log.GameLogger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -342,23 +344,23 @@ public class Game implements Serializable {
 	}
 
 	private void printWelcomeMessage() {
-		String pot = 	"        /~~~~~~~~~~~~~~~~~~~~/|\n" +
-						"       /            /######/ /|\n" +
-						"      /            /______/ / |\n" +
-						"     =======================/||\n" +
-						"     |C̲A̲F̲F̲E̲I̲N̲E̲ ̲G̲A̲M̲E̲ ̲E̲N̲G̲I̲N̲E̲|/ ||\n" +
-						"      |  \\****/     \\__,,__/ ||\n" +
-						"      |===\\**/       __,,__  ||\n" +
-						"      |______________\\====/%_||\n" +
-						"      |   ___        /~~~~\\ % /|\n" +
-						"     _|  |===|===   /      \\%/ |\n" +
-						"    | |  |###|     |########| /\n" +
-						"    |____\\###/______\\######/|/\n" +
-						"    ~~~~~~~~~~~~~~~~~~~~~~~~\n";
-		String logo = 	"█▀▀ █ █▀▀ █▀▀ █▀▀\n"+
-						"█▄▄ █ ██▄ █▄█ ██▄\n";
-		String smallIcon = "C̲I̲E̲G̲E̲";
-		System.out.println("Caffeine Game Engine v" + this.VERSION + "\n" + pot + logo + "Thanks for using Ciege! visit our website at https://www.runningmanstudios.com/ciege");
+		GameLogger.console.println("Caffeine Game Engine v" + this.VERSION, new Color(200, 255, 155));
+		GameLogger.console.println("        /~~~~~~~~~~~~~~~~~~~~/|", Style.getColor("silver"));
+		GameLogger.console.println("       /            /######/ /|", Style.getColor("silver"));
+		GameLogger.console.println("      /            /______/ / |", Style.getColor("silver"));
+		GameLogger.console.println("     =======================/||", Style.getColor("silver"));
+		GameLogger.console.println("     |CAFFEINE GAME ENGINE|/ ||", Style.getColor("silver"));
+		GameLogger.console.println("      |  \\****/     \\__,,__/ ||", Style.getColor("silver"));
+		GameLogger.console.println("      |===\\**/       __,,__  ||", Style.getColor("silver"));
+		GameLogger.console.println("      |______________\\====/%_||", Style.getColor("silver"));
+		GameLogger.console.println("      |   ___        /~~~~\\ % /|", Style.getColor("silver"));
+		GameLogger.console.println("     _|  |===|===   /      \\%/ |", Style.getColor("silver"));
+		GameLogger.console.println("    | |  |###|     |########| /", Style.getColor("silver"));
+		GameLogger.console.println("    |____\\###/______\\######/|/", Style.getColor("silver"));
+		GameLogger.console.println("    ~~~~~~~~~~~~~~~~~~~~~~~~", Style.getColor("silver"));
+		GameLogger.console.println("█▀▀ █ █▀▀ █▀▀ █▀▀", Style.getColor("brown"));
+		GameLogger.console.println("█▄▄ █ ██▄ █▄█ ██▄", Style.getColor("brown"));
+		GameLogger.console.println("Thanks for using Ciege! visit our website at https://www.runningmanstudios.com/ciege", new Color(200, 255, 155));
 	}
 
 	private void printStartUpInfo() {
