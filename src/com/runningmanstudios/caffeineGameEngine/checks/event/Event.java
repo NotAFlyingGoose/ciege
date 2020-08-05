@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Event Class. extend to make an Event.
- * Classes that don't extend Event and EventBuilder are not Events.
+ * Classes that don't extend Event are not Events.
  */
 public abstract class Event implements Serializable {
     boolean canceled = false;

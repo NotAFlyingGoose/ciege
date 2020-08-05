@@ -1,9 +1,7 @@
 package com.runningmanstudios.caffeineGameEngine.events.input;
 
-import com.runningmanstudios.caffeineGameEngine.checks.annotations.EventBuilder;
 import com.runningmanstudios.caffeineGameEngine.checks.event.Event;
 
-@EventBuilder
 public class InputEvent extends Event {
     private final java.awt.event.InputEvent input;
 

@@ -1,6 +1,5 @@
 package com.runningmanstudios.caffeineGameEngine.checks.event;
 
-import com.runningmanstudios.caffeineGameEngine.checks.annotations.EventBuilder;
 import com.runningmanstudios.caffeineGameEngine.checks.annotations.EventBusSubscriber;
 import com.runningmanstudios.caffeineGameEngine.checks.exceptions.EventException;
 
@@ -19,13 +18,12 @@ public class EventBus implements Serializable {
 
     /**
      * sends an Event to all methods that have that Event as a parameter.
-     * Events must extend the Event class and must have the annotation @EventBuilder
+     * Events must extend the Event class
      * @param event event to emit
      * @return if while being emited a listener cancelled the event then this will return true
      * cancelling doesn't actually do anything other than give you a boolean value.
      * you can decide whether or not to actually stop the process or not.
      * @see com.runningmanstudios.caffeineGameEngine.checks.event.Event
-     * @see EventBuilder
      */
     public boolean emit(Event event) {
         synchronized (this) {
@@ -33,15 +31,6 @@ public class EventBus implements Serializable {
             boolean cancelled = false;
             //get class from event instance
             Class eventClass = event.getClass();
-            //throw error if event doesn't have the @EventBuilder annotation
-            if (!eventClass.isAnnotationPresent(EventBuilder.class)) {
-                try {
-                    throw new EventException("Class  ->  \"" + eventClass.getSimpleName() + "\"\nClass does not have @EventBuilder annotation");
-                } catch (EventException e) {
-                    e.printStackTrace();
-                }
-                return false;
-            }
             //loop through every method that associate themselves with that class
             //Now we are going to backtrack and go through every listener that listens to a super of that event, including the event itself.
             //and then we are going to invoke the listener's method
@@ -117,21 +106,17 @@ public class EventBus implements Serializable {
                 }
             }
             Class subscribingTo = eventSubscriber.getParameterTypes()[0];
-            if (subscribingTo.isAnnotationPresent(EventBuilder.class)) {
-                if (Event.class.isAssignableFrom(subscribingTo)) {
-                    // we have the event he wants
+            if (Event.class.isAssignableFrom(subscribingTo)) {
+                // we have the event he wants
 
-                    if (!this.listeners.containsKey(subscribingTo)) {
-                        this.listeners.put(subscribingTo, new LinkedList<>());
-                    }
-                    this.listeners.get(subscribingTo).add(new EventBusListener(listener, eventSubscriber));
-
-                    // you went to far down idiot
-                } else {
-                    new EventException("Method  ->  \"" + eventSubscriber.getName() + "\"\nMethod does not have proper Event parameter").printStackTrace();
+                if (!this.listeners.containsKey(subscribingTo)) {
+                    this.listeners.put(subscribingTo, new LinkedList<>());
                 }
+                this.listeners.get(subscribingTo).add(new EventBusListener(listener, eventSubscriber));
+
+                // you went to far down idiot
             } else {
-                new EventException("Method  ->  \"" + eventSubscriber.getName() + "\"\nEvent parameter does not have @EventBuilder annotation").printStackTrace();
+                new EventException("Method  ->  \"" + eventSubscriber.getName() + "\"\nMethod does not have proper Event parameter").printStackTrace();
             }
         }
     }
