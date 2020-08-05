@@ -49,6 +49,7 @@ public class Console {
         this.input.setForeground(Color.WHITE);
         this.input.setFont(new Font("Courier New", Font.PLAIN, 12));
         this.input.setBackground(new Color(105, 105, 105));
+        //hello
 
         this.input.addActionListener(e -> {
             String text = Console.this.input.getText();
