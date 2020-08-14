@@ -27,7 +27,7 @@ public class MyGame implements Serializable {
 	}
 	
 	public static void main(String[] args) {
-		//new MyGame();
+		new MyGame();
 		/*Console console = new Console();
 		console.setVisible(true);*/
 	}
