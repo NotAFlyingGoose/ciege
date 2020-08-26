@@ -1,6 +1,7 @@
 package com.runningmanstudios.ciegedemo;
 
 import com.runningmanstudios.caffeineGameEngine.checks.annotations.GameBuilder;
+import com.runningmanstudios.caffeineGameEngine.console.Console;
 import com.runningmanstudios.caffeineGameEngine.console.script.window.CScriptWin;
 import com.runningmanstudios.caffeineGameEngine.util.log.GameLogger;
 import com.runningmanstudios.caffeineGameEngine.window.Game;
@@ -27,8 +28,8 @@ public class MyGame implements Serializable {
 	}
 	
 	public static void main(String[] args) {
-		new MyGame();
-		/*Console console = new Console();
-		console.setVisible(true);*/
+		//new MyGame();
+		Console console = new Console();
+		console.setVisible(true);
 	}
 }
